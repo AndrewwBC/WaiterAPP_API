@@ -7,7 +7,7 @@ mongoose
   .then(() => {
     const app = express();
 
-    app.use(express.json);
+    app.use(express.json());
     app.use(router);
 
     console.log("Conectado ao mongo");
