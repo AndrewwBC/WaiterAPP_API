@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Carne",
+    "icon": "https://cdn-icons-png.flaticon.com/512/1046/1046769.png"
+  },
+  {
+    "name": "Queijo",
+    "icon": "https://cdn-icons-png.flaticon.com/512/605/605318.png"
+  },
+  {
+    "name": "Bacon",
+    "icon": "https://cdn-icons-png.flaticon.com/512/1857/1857921.png"
+  },
+  {
+    "name": "Salada",
+    "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS18N1VZVaNglzvW4I2Xm0CUqvl1iJFwoLDig&usqp=CAU"
+  }
+]

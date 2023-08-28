@@ -1,9 +1,30 @@
+import path from "node:path";
+
 import { Router } from "express";
+import multer, { diskStorage } from "multer";
+
 import { listCategories } from "./app/useCases/categories/listCategories";
 import { createCategory } from "./app/useCases/categories/createCategory";
 import { listProducts } from "./app/useCases/products/listProducts";
+import { createProducts } from "./app/useCases/products/createProduct";
+import { listProductsByCategory } from "./app/useCases/categories/listProductsByCategory";
+import { listOrders } from "./app/useCases/orders/listOrders";
+import { createOrder } from "./app/useCases/orders/createOrder";
+import { changeOrderStatus } from "./app/useCases/orders/changeOrderStatus";
+import { cancelOrder } from "./app/useCases/orders/cancelOrder";
 
 export const router = Router();
+
+const upload = multer({
+  storage: diskStorage({
+    destination(req, file, callback) {
+      callback(null, path.resolve(__dirname, "..", "uploads"));
+    },
+    filename(req, file, callback) {
+      callback(null, `${Date.now()}-${file.originalname}`);
+    },
+  }),
+});
 
 router.get("/categories", listCategories);
 
@@ -11,29 +32,17 @@ router.post("/categories", createCategory);
 
 router.get("/products", listProducts);
 
-router.post("/products", (req, res) => {
-  res.send("Ok");
-});
+router.post("/products", upload.single("image"), createProducts);
 
-router.post("/categories/:categoryId/products", (req, res) => {
-  res.send("Ok");
-});
+router.get("/categories/:categoryId/products", listProductsByCategory);
 
 // orders
 
-router.get("/orders", (req, res) => {
-  res.send("Ok");
-});
+router.get("/orders", listOrders);
 
-router.post("/orders", (req, res) => {
-  res.send("Ok");
-});
+router.post("/orders", createOrder);
 
 //Alteração parcial, usamos PATCH
-router.patch("/orders/:orderId", (req, res) => {
-  res.send("Ok");
-});
+router.patch("/orders/:orderId", changeOrderStatus);
 
-router.delete("/orders/:orderId", (req, res) => {
-  res.send("Ok");
-});
+router.delete("/orders/:orderId", cancelOrder);
